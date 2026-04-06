@@ -17,9 +17,10 @@ app.use(compression());
 
 // CORS Configuration
 app.use(cors({
-  origin: "*",
+  origin: (origin, callback) => callback(null, true),
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization", "X-Reseller-Id"]
 }));
 
 // 🔥 Removed app.options as Express 5 path-to-regexp crashes on wildcard strings, and app.use(cors) already handles preflights.
